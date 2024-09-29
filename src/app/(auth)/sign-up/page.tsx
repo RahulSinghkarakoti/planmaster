@@ -118,11 +118,12 @@ const Page = () => {
            <CardDescription>Sign up now! Your future self will thank you  . </CardDescription>
          </CardHeader>
          <CardContent>
-         <Form {...form}>
+         <Form {...form} >
        <form
             action=""
             onSubmit={form.handleSubmit(onSubmit)}
             className=" space-y-2 text-lg outline-none"
+            
           >
             <FormField
               control={form.control}
@@ -182,7 +183,11 @@ const Page = () => {
                 </FormItem>
               )}
             />
-            <Button className="w-full" type="submit" disabled={isSubmitting}   > 
+            <Button className="w-full" type="submit"
+            //  disabled={isSubmitting }
+            disabled={true as boolean}
+
+                > 
                 {
                     isSubmitting ?
                     <div className="flex items-center justify-center">
@@ -193,6 +198,9 @@ const Page = () => {
                     "Submit"
                 }
             </Button>
+            <FormLabel>
+             there is a error in signup, please use google signup. we are working on it . 
+            </FormLabel>
             <div className="flex justify-center items-center gap-3 px-4">
                   <Separator className="bg-zinc-500 h-1 rounded-full w-1/2" />
                   <p>or</p>
