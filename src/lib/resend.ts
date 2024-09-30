@@ -1,5 +1,5 @@
 import VerificationEmail from '../../emails/VerificationEmail';
-import { Resend } from 'resend';
+// import { Resend } from 'resend';
 import { ApiResponse } from '@/types/ApiResponse';
 import axios from 'axios';
 

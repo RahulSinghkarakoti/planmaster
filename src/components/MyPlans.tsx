@@ -41,7 +41,7 @@ function MyPlans() {
   useEffect(() => {
     setCompletedPlans(plans.filter((p) => p.plan.isCompleted));
     setOngingPlans(plans.filter((p) => !p.plan.isCompleted));
-    console.log(typeof ongoingPlans[0]?.percentageCompleted)
+    // console.log(typeof ongoingPlans[0]?.percentageCompleted)
   }, [plans]);
 
   return (
