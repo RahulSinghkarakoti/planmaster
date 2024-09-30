@@ -2,19 +2,7 @@
 /* eslint-disable */
 
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Step,
-  StepDescription,
-  StepIcon,
-  StepIndicator,
-  StepNumber,
-  StepSeparator,
-  StepStatus,
-  StepTitle,
-  Stepper,
-  useSteps,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import axios from "axios";
 import { PlanResponse } from "@/types/ApiResponse";
 import {
@@ -44,9 +32,7 @@ import { Button } from "@/components/ui/button";
 import { CircleCheckBig, Info } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-interface PlanProps {
-  planId: string;
-}
+ 
 
 const Plan = ({ planId }: { planId: string }) => {
   // const { planId } = useParams();
@@ -79,11 +65,6 @@ const Plan = ({ planId }: { planId: string }) => {
     };
     fetchPlan();
   }, []);
-
-  const { activeStep } = useSteps({
-    index: 0,
-    count: modules.length,
-  });
 
   async function toggleModule(id: string): Promise<any> {
     //console.log(modules);
@@ -136,7 +117,6 @@ const Plan = ({ planId }: { planId: string }) => {
 
   return (
     <section className="w-full pt-16 md:pt-12 lg:pt-16 xl:pt-24  flex flex-col items-center  bg-black dark:bg-white relative top-0 z-2 ">
-      
       <div className="container px-4 md:px-6 sm:px-3    ">
         <div className="flex flex-col items-center space-y-4 text-center ">
           <div className="space-y-2">
@@ -153,10 +133,9 @@ const Plan = ({ planId }: { planId: string }) => {
           <div className="bg-white dark:bg-gray-200 w-full sm:w-2/3 md:w-3/4 p-4 rounded-xl">
             {loading ? (
               <div className="text-center font-semibold text-2xl">
-              Loading....
+                Loading....
               </div>
             ) : (
-              
               <ol className=" relative text-gray-500 border-s-4 border-gray-400  dark:border-gray-700 dark:text-gray-400">
                 {modules.map((module: any, index: any) => (
                   <li key={module._id} className="mb-10 ms-6">
@@ -190,21 +169,21 @@ const Plan = ({ planId }: { planId: string }) => {
                     <Box flexShrink="1">
                       <div className="flex items-center space-x-2">
                         <span className="font-medium leading-tight text-lg text-black">
-                        {module.name}
+                          {module.name}
                         </span>
-                      <Popover>
-                        <PopoverTrigger>
-                          <Info className="min-w-4 min-h-4 text-black" />
-                        </PopoverTrigger>
-                        <PopoverContent>
-                          <PopoverArrow />
-                          <PopoverCloseButton />
-                          <PopoverHeader>Additional Info.</PopoverHeader>
-                          <PopoverBody className="text-sm font-normal">
-                            {module.add_info}
-                          </PopoverBody>
-                        </PopoverContent>
-                      </Popover>
+                        <Popover>
+                          <PopoverTrigger>
+                            <Info className="min-w-4 min-h-4 text-black" />
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <PopoverArrow />
+                            <PopoverCloseButton />
+                            <PopoverHeader>Additional Info.</PopoverHeader>
+                            <PopoverBody className="text-sm font-normal">
+                              {module.add_info}
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Popover>
                       </div>
                       <p className="text-sm">{module.desc}</p>
 
@@ -257,7 +236,6 @@ const Plan = ({ planId }: { planId: string }) => {
           </AlertDialog>
         </div>
       </div>
-
     </section>
   );
 };

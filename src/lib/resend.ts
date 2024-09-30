@@ -3,7 +3,7 @@ import { Resend } from 'resend';
 import { ApiResponse } from '@/types/ApiResponse';
 import axios from 'axios';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// const resend = new Resend(process.env.RESEND_API_KEY);
 console.log("Resend API Key:", process.env.RESEND_API_KEY);
 const BREVO_API_KEY = process.env.BREVO_API_KEY
 
@@ -44,7 +44,7 @@ export async function sendVerificationEmail(
                 sender: { email: '7d0616001@smtp-brevo.com' }, // Sender email
                 to: [{ email }], // Recipient email
                 subject: ' Verification code | PlanMaster', // Subject
-                htmlContent: `<p>${verifyCode}</p>`, // HTML content
+                htmlContent: VerificationEmail({username,otp:verifyCode}), // HTML content
             },
             {
                 headers: {
