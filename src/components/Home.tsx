@@ -1,15 +1,16 @@
 "use client";
 
-import {  useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Loader2, Sparkles } from "lucide-react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { TypeAnimation } from "react-type-animation";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { useSession } from "next-auth/react";
+import { CustomErrorResponse } from "next-auth";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -21,44 +22,53 @@ export default function Home() {
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
-
     //console.log(submitting);
     e.preventDefault();
-    if(!session)
-    {
+    if (!session) {
       toast({
         title: "LogIn required",
         description: "Please login to start ",
         variant: "default",
       });
-      return 
+      return;
     }
     //console.log("Generating plan for:", planIdea);
     try {
       setSubmitting(true);
       const response = await axios.post("api/setPlan", { task: planIdea });
-      //console.log(response.data);
+      console.log(response.data);
+
       toast({
         title: "planIdea",
         description: "Plan creation successfull",
         variant: "default",
       });
       route.replace(`/Plan/${response.data.newPlanId}`);
-    } catch (error) {
-      //console.log("erro creating paln ", error);
-      toast({
-        title: "Error",
-        description: "Error Creation Plan ",
-        variant: "destructive",
-      });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError<CustomErrorResponse>;
+        if (axiosError.response && axiosError.response.data) {
+          if (axiosError.response.data.message === "Invalid prompt") {
+            toast({
+              title: "Invalid Prompt",
+              description: "Please enter proper prompt ",
+              variant: "destructive",
+            });
+          }
+        }
+      } else {
+        toast({
+          title: "Error",
+          description: "Error Creation Plan ",
+          variant: "destructive",
+        });
+      }
     } finally {
       setSubmitting(false);
     }
     // Reset the input field
     setPlanIdea("");
   };
- 
-  
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48   flex items-center justify-center h-screen  bg-black dark:bg-white   top-0 overflow-hidden">
@@ -77,11 +87,10 @@ export default function Home() {
               Let us turn your task list into a brilliant plan! Sit back, relax
               and let AI do the heavy lifting (because you know...it&apos;s
               smarter).{" "}
-              
             </p>
           </div>
           <div className="w-full max-w-sm space-y-2">
-            <form onSubmit={handleSubmit}  className="flex space-x-2">
+            <form onSubmit={handleSubmit} className="flex space-x-2">
               <Input
                 type="text"
                 className="flex-1 bg-white/10 text-white placeholder-gray-300"
@@ -95,7 +104,6 @@ export default function Home() {
 
               <Button
                 disabled={submitting}
-
                 type="submit"
                 className="bg-white dark:bg-purple-600 text-purple-600 dark:text-white hover:bg-gray-100 "
               >

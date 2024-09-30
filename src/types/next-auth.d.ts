@@ -20,6 +20,10 @@ declare module 'next-auth'
           username?: string;
         } & DefaultSession['user'];
       }
+      interface CustomErrorResponse {
+        message: string;
+        success:boolean
+      }
 }
 
 declare module 'next-auth/jwt' {

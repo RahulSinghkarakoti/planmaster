@@ -24,8 +24,20 @@ export async function POST(request: Request) { //user will send task in request 
     //console.log(task)
     const newPlan = await generatePlan(task)
     try {
-        //console.log(newPlan)
+        // console.log(newPlan)
         //console.log(typeof newPlan)
+        // console.log(newPlan.title === 'Invalid')
+        if (newPlan.title === 'Invalid')
+            return Response.json({
+                success: false,
+                message: "Invalid prompt",
+                newPlanId: newPlan._id
+                // newPlanId: "new plan "
+            },
+                {
+                    status: 400
+                })
+
         const updatedUser = await UserModel.findByIdAndUpdate(userId, {
             $push: { plans: newPlan }
         }, { new: true });
@@ -50,7 +62,7 @@ export async function POST(request: Request) { //user will send task in request 
             })
 
     } catch (error) {
-         console.error("error updating plan", error)
+        console.error("error updating plan", error)
 
         return Response.json({
             success: false,

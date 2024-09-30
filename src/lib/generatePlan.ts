@@ -83,15 +83,56 @@ const schema: Record<string, any> = {
 //     systemInstruction: "The user will provide a task or goal, and you have to generate a plan with a unique plan_id and a set of modules, each with a unique module_id. Each module should include a name, description, additional info (what to focus on while learning), and the completion status (isCompleted). The overall plan should also include a title and a isCompleted field indicating whether the plan has been fully completed. Both the plan_id and module_ids should be generated as random unique values.\n[\n  {\n    \"plan\": {\n      \"_id\": \"random_plan_id\",\n      \"title\": \"Title of the plan\",\n      \"isCompleted\": false, \n      \"modules\": [\n        {\n          \"_id\": \"random_module_id\",\n          \"name\": \"Name of the module\",\n          \"desc\": \"Description of the module content.\",\n          \"add_info\": \"Specific focus areas and learning tips.\",\n          \"isCompleted\":  false\n        },\n        {\n          \"_id\": \"random_module_id_2\",\n          \"name\": \"Name of the next module\",\n          \"desc\": \"Description of what this module covers.\",\n          \"add_info\": \"What to keep in mind during this part of the learning process.\",\n          \"isCompleted\": false  \n        }\n      ]\n    }\n  }\n]\nIf no valid task/goal is provided\n{\n  \"error\": \"Must provide a valid task.\"\n}\n",
 // });
 
-const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
-    generationConfig: {
-      responseMimeType: "application/json",
-      responseSchema: schema,
-    },
-    systemInstruction: "The user will provide a task or goal, and you have to generate a plan with a unique plan_id and a set of modules, each with a unique module_id. Each module should include a name, description, additional info (what to focus on while learning), and the completion status (isCompleted). The overall plan should also include a title and a isCompleted field indicating whether the plan has been fully completed. Both the plan_id and module_ids should be generated as random unique values.\n[\n  {\n    \"plan\": {\n      \"_id\": \"random_plan_id\",\n      \"title\": \"Title of the plan\",\n      \"isCompleted\": false, \n      \"modules\": [\n        {\n          \"_id\": \"random_module_id\",\n          \"name\": \"Name of the module\",\n          \"desc\": \"Description of the module content.\",\n          \"add_info\": \"Specific focus areas and learning tips.\",\n          \"isCompleted\":  false\n        },\n        {\n          \"_id\": \"random_module_id_2\",\n          \"name\": \"Name of the next module\",\n          \"desc\": \"Description of what this module covers.\",\n          \"add_info\": \"What to keep in mind during this part of the learning process.\",\n          \"isCompleted\": false  \n        }\n      ]\n    }\n  }\n]\nIf no valid task/goal is provided\n{\n  \"error\": \"Must provide a valid task.\"\n}\n",
+// const model = genAI.getGenerativeModel({
+//     model: "gemini-1.5-flash",
+//     generationConfig: {
+//       responseMimeType: "application/json",
+//       responseSchema: schema,
+//     },
+//     systemInstruction: "The user will provide a task or goal, and you have to generate a plan with a unique plan_id and a set of modules, each with a unique module_id. Each module should include a name, description, additional info (what to focus on while learning), and the completion status (isCompleted). The overall plan should also include a title and a isCompleted field indicating whether the plan has been fully completed. Both the plan_id and module_ids should be generated as random unique values.\n[\n  {\n    \"plan\": {\n      \"_id\": \"random_plan_id\",\n      \"title\": \"Title of the plan\",\n      \"isCompleted\": false, \n      \"modules\": [\n        {\n          \"_id\": \"random_module_id\",\n          \"name\": \"Name of the module\",\n          \"desc\": \"Description of the module content.\",\n          \"add_info\": \"Specific focus areas and learning tips.\",\n          \"isCompleted\":  false\n        },\n        {\n          \"_id\": \"random_module_id_2\",\n          \"name\": \"Name of the next module\",\n          \"desc\": \"Description of what this module covers.\",\n          \"add_info\": \"What to keep in mind during this part of the learning process.\",\n          \"isCompleted\": false  \n        }\n      ]\n    }\n  }\n]\nIf no valid task/goal is provided\n{\n  \"error\": \"Must provide a valid task.\"\n}\n",
 
-  });
+//   });
+const model = genAI.getGenerativeModel({
+  model: "gemini-1.5-flash",
+  generationConfig: {
+    responseMimeType: "application/json",
+    responseSchema: schema,
+  },
+  systemInstruction: `**Prompt Validation and Plan Generation**
+
+  **Valid Prompt Criteria:**
+  - Clear and specific task or goal.
+  - Well-defined instructions.
+  - No ambiguous or contradictory elements.
+
+  **Invalid Prompt Handling:**
+  - If the prompt does not meet the above criteria, return an error message in JSON format that matches the specified schema. Ensure the error message is informative and provides guidance on how to correct the prompt.
+  - **Set the title of the plan to 'Invalid'.**
+
+  **Valid Prompt Processing:**
+  - If the prompt is valid, generate a plan with the following structure:
+    {
+      "plan": {
+        "_id": "random_plan_id",
+        "title": "Title of the plan",
+        "isCompleted": false,
+        "modules": [
+          {
+            "_id": "random_module_id",
+            "name": "Name of the module",
+            "desc": "Description of the module content",
+            "add_info": "Specific focus areas and learning tips",
+            "isCompleted": false
+          }
+        ]
+      }
+    }
+  - Ensure the plan_id and module_ids are unique random values.
+  - Generate a relevant and comprehensive plan based on the provided prompt.
+  `,
+});
+
+
 
 // const generationConfig = {
 //     temperature: 1,
@@ -113,7 +154,9 @@ export async function generatePlan(task: string) {
         const prompt=task
     
         const result = await model.generateContent(prompt);
+        // console.log(result)
         const jsonResponse = JSON.parse(result.response.text()); 
+        // console.log(jsonResponse)
         return jsonResponse
     } catch (error) {
          console.error("Error genrating plan",error);

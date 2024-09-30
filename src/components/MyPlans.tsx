@@ -1,9 +1,10 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -15,7 +16,6 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 
 function MyPlans() {
-
   const [plans, setPlans] = useState<PlanResponse[]>([]);
   const [ongoingPlans, setOngingPlans] = useState<PlanResponse[]>([]);
   const [completedPlans, setCompletedPlans] = useState<PlanResponse[]>([]);
@@ -42,6 +42,7 @@ function MyPlans() {
   useEffect(() => {
     setCompletedPlans(plans.filter((p) => p.plan.isCompleted));
     setOngingPlans(plans.filter((p) => !p.plan.isCompleted));
+    console.log(typeof ongoingPlans[0]?.percentageCompleted)
   }, [plans]);
 
   return (
@@ -91,7 +92,14 @@ function MyPlans() {
                         <CardTitle className="text-3xl font-bold">
                           {p.plan.title}
                         </CardTitle>
-                        <CardDescription>{p.plan._id}</CardDescription>
+                        <CardDescription>
+                        {"Id: "}
+
+                          {p.plan._id}</CardDescription>
+                        <CardDescription>
+                          {p.percentageCompleted.toFixed(0)}
+                          {"% completed"}
+                        </CardDescription>
                       </CardHeader>
                       <CardContent>
                         <Progress value={p.percentageCompleted} />
@@ -120,9 +128,17 @@ function MyPlans() {
                           Completed
                         </Badge>
                         <CardTitle className="text-3xl font-bold">
-                          {p.plan.title}
+                          { p.plan.title}
                         </CardTitle>
-                        <CardDescription>{p.plan._id}</CardDescription>
+                        <CardDescription>
+                        {"Id: "}
+
+                          {p.plan._id}</CardDescription>
+                        <CardDescription>
+                          {p.percentageCompleted.toFixed(0)}
+                          
+                          {"% completed"}
+                        </CardDescription>
                       </CardHeader>
                       <CardContent>
                         <Progress value={p.percentageCompleted} />
@@ -141,6 +157,5 @@ function MyPlans() {
     </section>
   );
 }
- 
 
 export default MyPlans;
