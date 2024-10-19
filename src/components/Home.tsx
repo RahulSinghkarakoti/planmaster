@@ -72,28 +72,28 @@ export default function Home() {
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48   flex items-center justify-center h-screen  bg-black dark:bg-white   top-0 overflow-hidden">
-      <div className="container px-4 md:px-6  sm:h-full relative z-10    ">
-        <div className="flex flex-col items-center space-y-4 text-center ">
-          <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-white dark:text-black">
+      <div className="container px-4 md:px-6  sm:h-full  flex flex-col justify-center items-center relative z-10    ">
+        <div className="flex flex-col  items-center space-y-4 text-center   ">
+            <div className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none 2xl:text-7xl text-white dark:text-black">
               Turn Your Vision into{" "}
               <TypeAnimation
                 sequence={["Reality", 1000, "Impact", 1000, "Result", 1000]}
                 speed={10}
                 repeat={Infinity}
               />
-            </h1>
-            <p className="mx-auto max-w-[700px] text-gray-200 dark:text-gray-800 md:text-xl sm:text-2xl text-sm ">
+            </div>
+          <div className="space-y-2 ">
+            <p className="mx-auto max-w-[700px] text-gray-200 dark:text-gray-800 2xl:text-2xl xl:text-xl md:text-xl sm:text-2xl text-sm ">
               Let us turn your task list into a brilliant plan! Sit back, relax
               and let AI do the heavy lifting (because you know...it&apos;s
               smarter).{" "}
             </p>
           </div>
-          <div className="w-full max-w-sm space-y-2">
-            <form onSubmit={handleSubmit} className="flex space-x-2">
+          <div className="w-full max-w-md  space-y-2 ">
+            <form onSubmit={handleSubmit} className="flex space-x-2   w-full">
               <Input
                 type="text"
-                className="flex-1 bg-white/10 text-white placeholder-gray-300"
+                className="flex-1 bg-white/10 text-white   placeholder-white"
                 placeholder="Enter your plan idea..."
                 disabled={submitting}
                 value={planIdea}

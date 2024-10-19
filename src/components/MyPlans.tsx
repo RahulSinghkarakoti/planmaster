@@ -73,6 +73,7 @@ function MyPlans() {
                   {Array.from({ length: 4 }).map((_, index) => (
                     <Card
                       className="w-full h-32 flex flex-col justify-between dark:bg-zinc-600  "
+
                       key={index}
                     >
                       <CardHeader>
@@ -86,9 +87,11 @@ function MyPlans() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4  ">
                 {ongoingPlans.map((p, index) => (
                   <Link href={`/Plan/${p.plan._id}`} key={index}>
-                    <Card className="w-full h-full flex flex-col justify-between dark:bg-zinc-600">
+                    <Card
+                     className="w-full h-full flex flex-col justify-between dark:bg-white dark:shadow-xl "
+                     >
                       <CardHeader>
-                        <CardTitle className="text-3xl font-bold">
+                        <CardTitle className="text-3xl font-bold dark:text-black ">
                           {p.plan.title}
                         </CardTitle>
                         <CardDescription>
@@ -100,7 +103,7 @@ function MyPlans() {
                           {"% completed"}
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="dark:text-black ">
                         <Progress value={p.percentageCompleted} />
                         {p.completedModules}
                         {"/"}
@@ -116,17 +119,17 @@ function MyPlans() {
                 {completedPlans.map((p, index) => (
                   <Link href={`/Plan/${p.plan._id}`} key={index}>
                     <Card
-                      className="w-full h-full flex flex-col justify-between dark:bg-zinc-600 relative"
+                      className="w-full h-full flex flex-col justify-between dark:bg-white dark:shadow-xl relative"
                       key={index}
                     >
                       <CardHeader>
                         <Badge
                           variant="outline"
-                          className="absolute top-2 right-2 bg-green-400 "
+                          className="absolute top-2 right-2 bg-green-400 dark:text-black   "
                         >
                           Completed
                         </Badge>
-                        <CardTitle className="text-3xl font-bold">
+                        <CardTitle className="text-3xl font-bold dark:text-black ">
                           { p.plan.title}
                         </CardTitle>
                         <CardDescription>
@@ -139,8 +142,8 @@ function MyPlans() {
                           {"% completed"}
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
-                        <Progress value={p.percentageCompleted} />
+                      <CardContent className="dark:text-black">
+                        <Progress   value={p.percentageCompleted} />
                         {p.completedModules}
                         {"/"}
                         {p.totalModules}

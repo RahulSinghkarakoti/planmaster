@@ -6,13 +6,13 @@ import { Facebook, Twitter, Instagram, Linkedin, Send } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 dark:bg-gray-200 text-gray-300  absolute z-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-black dark:bg-gray-200 text-gray-300  absolute z-20 w-full">
+      <div className="  mx-auto px-4 sm:px-6 lg:px-8 py-12  w-full">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 dark:text-black">
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center mb-4">
-              <span className="sr-only">PlanMaster </span>
+              <span className="sr-only ">PlanMaster </span>
               <svg
                 className="h-8 w-8 text-purple-500 dark:text-purple-800"
                 fill="none"
@@ -32,7 +32,7 @@ export default function Footer() {
                 <line x1="12" x2="12" y1="22" y2="12" />
               </svg>
               
-              <span className="ml-2 text-xl font-bold">PlanMaster</span>
+              <span className="ml-2 text-xl 2xl:text-3xl font-bold">PlanMaster</span>
             </Link>
             <p className="text-sm">
               Transform your ideas into actionable plans with the power of AI.

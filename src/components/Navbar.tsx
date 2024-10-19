@@ -39,7 +39,7 @@ function Navbar() {
             <svg
               className="sm:h-10 h-9 sm:w-10 w-9 text-purple-500"
               fill="none"
-              height="27"
+              height="27 "
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -54,7 +54,7 @@ function Navbar() {
               <line x1="12" x2="12" y1="22" y2="12" />
             </svg>
 
-            <h1 className="sm:text-3xl md:text-2xl text-lg font-bold text-white dark:text-black  ">
+            <h1 className="sm:text-3xl md:text-2xl 2xl:text-4xl text-lg font-bold text-white dark:text-black  ">
               PlanMaster
             </h1>
           </Link>

@@ -36,7 +36,7 @@ import { useRouter } from "next/navigation";
 
 const Plan = ({ planId }: { planId: string }) => {
   // const { planId } = useParams();
-  // //console.log(planId);
+  //console.log(planId);
   const [plan, setPlan] = useState<PlanResponse | null>(null);
   const [modules, setModules] = useState<any>([]);
   const [loading, setLoading] = useState(false);
@@ -67,7 +67,7 @@ const Plan = ({ planId }: { planId: string }) => {
   }, []);
 
   async function toggleModule(id: string): Promise<any> {
-    //console.log(modules);
+    // console.log(modules);
     try {
       const response = await axios.post(
         `/api/toggleModuleCompletionById?planId=${planId}&moduleId=${id}`
@@ -124,7 +124,7 @@ const Plan = ({ planId }: { planId: string }) => {
               {plan && <div>{plan.planTitle}</div>}
             </h1>
             <p className="mx-auto max-w-[700px] text-gray-200 dark:text-gray-800 md:text-xl">
-              Here’s the blueprint to success. Just follow the steps, no
+              Here’s the blueprint . Just follow the steps, no
               assembly required.
             </p>
           </div>

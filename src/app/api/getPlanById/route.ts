@@ -21,7 +21,7 @@ export async function GET(request: Request) {
 
     const { searchParams } = new URL(request.url)
     const PlanId = searchParams.get('PlanId')
-    //console.log(PlanId)
+    // console.log(PlanId)
 
     const userId = new mongoose.Types.ObjectId(user._id)
 
@@ -71,7 +71,7 @@ export async function GET(request: Request) {
                 })
 
         }
-
+//  console.log(plan)
 
         return Response.json({
             success: true,
