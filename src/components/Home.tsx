@@ -11,16 +11,29 @@ import { TypeAnimation } from "react-type-animation";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { useSession } from "next-auth/react";
 import { CustomErrorResponse } from "next-auth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Home() {
   const { data: session } = useSession();
 
   const [planIdea, setPlanIdea] = useState("");
   const [submitting, setSubmitting] = useState(false);
-
+  const [selectedLevel, setSelectedLevel] = useState("beginner");
+  
   const route = useRouter();
   const { toast } = useToast();
 
+  const handleLevelChange = (value:string) => {
+    setSelectedLevel(value);  
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     //console.log(submitting);
     e.preventDefault();
@@ -35,7 +48,7 @@ export default function Home() {
     //console.log("Generating plan for:", planIdea);
     try {
       setSubmitting(true);
-      const response = await axios.post("api/setPlan", { task: planIdea });
+      const response = await axios.post("api/setPlan", { task: planIdea,selectedLevel });
       console.log(response.data);
 
       toast({
@@ -70,18 +83,20 @@ export default function Home() {
     setPlanIdea("");
   };
 
+
+
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48   flex items-center justify-center h-screen  bg-black dark:bg-white   top-0 overflow-hidden">
       <div className="container px-4 md:px-6  sm:h-full  flex flex-col justify-center items-center relative z-10    ">
         <div className="flex flex-col  items-center space-y-4 text-center   ">
-            <div className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none 2xl:text-7xl text-white dark:text-black">
-              Turn Your Vision into{" "}
-              <TypeAnimation
-                sequence={["Reality", 1000, "Impact", 1000, "Result", 1000]}
-                speed={10}
-                repeat={Infinity}
-              />
-            </div>
+          <div className=" flex sm:flex-row flex-col sm:gap-2 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none 2xl:text-7xl text-white dark:text-black">
+            Turn Your Vision into{" "}
+            <TypeAnimation
+              sequence={["Reality", 1000, "Impact", 1000, "Result", 1000]}
+              speed={10}
+              repeat={Infinity}
+            />
+          </div>
           <div className="space-y-2 ">
             <p className="mx-auto max-w-[700px] text-gray-200 dark:text-gray-800 2xl:text-2xl xl:text-xl md:text-xl sm:text-2xl text-sm ">
               Let us turn your task list into a brilliant plan! Sit back, relax
@@ -90,10 +105,10 @@ export default function Home() {
             </p>
           </div>
           <div className="w-full max-w-md  space-y-2 ">
-            <form onSubmit={handleSubmit} className="flex space-x-2   w-full">
+            <form onSubmit={handleSubmit} className="flex sm:flex-row flex-col sm:items-start   w-full  items-center sm:gap-0 gap-2 space-x-2   ">
               <Input
                 type="text"
-                className="flex-1 bg-white/10 text-white   placeholder-white"
+                className="flex-1 w-3/4 bg-white/10 text-white placeholder-white  "
                 placeholder="Enter your plan idea..."
                 disabled={submitting}
                 value={planIdea}
@@ -101,6 +116,33 @@ export default function Home() {
                   setPlanIdea(e.target.value);
                 }}
               />
+              <div  className="sm:flex flex-row space-x-2 ">
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="dark:bg-white dark:hover:text-black"
+                  > 
+                    {selectedLevel.charAt(0).toUpperCase() + selectedLevel.slice(1)} 
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent  className="w-36 dark:bg-white dark:text-black">
+                  <DropdownMenuLabel>Select Level</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuRadioGroup  value={selectedLevel} onValueChange={handleLevelChange}>
+                    <DropdownMenuRadioItem value="beginner">
+                      Beginner
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="intermediate">
+                      Intermediate
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="advanced">
+                      Advanced
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               <Button
                 disabled={submitting}
@@ -119,6 +161,7 @@ export default function Home() {
                   </>
                 )}
               </Button>
+              </div>
             </form>
           </div>
           <div className="flex items-center justify-center space-x-2 text-gray-200 dark:text-gray-800">

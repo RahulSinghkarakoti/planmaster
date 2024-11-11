@@ -35,7 +35,7 @@ function Navbar() {
     <>
       <nav className="flex items-center justify-between px-4 py-4 w-full  shadow-lg  fixed   top-0 z-20  bg-black/95 dark:bg-white/50 backdrop-blur supports-[backdrop-filter]:bg-black/60">
         <div className="">
-          <Link href={"/"} className="flex items-center gap-2">
+          <Link href={"/"} className="flex items-center gap-2 ">
             <svg
               className="sm:h-10 h-9 sm:w-10 w-9 text-purple-500"
               fill="none"
@@ -66,7 +66,7 @@ function Navbar() {
         )}
 
         {session?.user ? (
-          <div className="flex items-center justify-between gap-3 sm:text-2xl text-xl text-gray-200 dark:text-black font-semibold">
+          <div className="flex  items-center justify-between gap-3 sm:text-2xl text-xl text-gray-200 dark:text-black font-semibold">
             <button onClick={() => darkModeHandler()}>
               {
                 dark && <Sun /> // render sunny when dark is true
@@ -83,7 +83,7 @@ function Navbar() {
             </Button>
           </div>
         ) : (
-          <div className="flex items-center justify-between gap-3 sm:text-2xl text-lg text-white dark:text-black">
+          <div className="flex   items-center justify-between sm:gap-3 gap-1  sm:text-2xl text-lg text-white dark:text-black">
             <button onClick={() => darkModeHandler()}>
               {
                 dark && <Sun /> // render sunny when dark is true

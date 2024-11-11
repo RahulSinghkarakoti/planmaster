@@ -20,9 +20,9 @@ export async function POST(request: Request) { //user will send task in request 
     }
 
     const userId = new mongoose.Types.ObjectId(user._id)
-    const { task } = await request.json()
+    const { task,selectedLevel } = await request.json()
     //console.log(task)
-    const newPlan = await generatePlan(task)
+    const newPlan = await generatePlan(task,selectedLevel)
     try {
         // console.log(newPlan)
         //console.log(typeof newPlan)

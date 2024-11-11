@@ -14,7 +14,9 @@ import { PlanResponse } from "@/types/ApiResponse";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 
-function MyPlans() {
+ 
+
+export default function MyPlans() {
   const [plans, setPlans] = useState<PlanResponse[]>([]);
   const [ongoingPlans, setOngingPlans] = useState<PlanResponse[]>([]);
   const [completedPlans, setCompletedPlans] = useState<PlanResponse[]>([]);
@@ -39,6 +41,7 @@ function MyPlans() {
   }, []);
 
   useEffect(() => {
+    // console.log(plans)
     setCompletedPlans(plans.filter((p) => p.plan.isCompleted));
     setOngingPlans(plans.filter((p) => !p.plan.isCompleted));
     // console.log(typeof ongoingPlans[0]?.percentageCompleted)
@@ -160,4 +163,4 @@ function MyPlans() {
   );
 }
 
-export default MyPlans;
+ 
