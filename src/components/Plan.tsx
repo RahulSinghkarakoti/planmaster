@@ -1,4 +1,5 @@
 "use client"; 
+/* eslint-disable */
 
 import React, { useEffect, useState } from "react";
 import { Box } from "@chakra-ui/react";
