@@ -185,8 +185,8 @@ const Page = () => {
               )}
             />
             <Button className="w-full" type="submit"
-            //  disabled={isSubmitting }
-            disabled={true as boolean}
+             disabled={isSubmitting }
+            // disabled={true as boolean}
 
                 > 
                 {
@@ -199,9 +199,9 @@ const Page = () => {
                     "Submit"
                 }
             </Button>
-            <FormLabel className="space-y-0">
+            {/* <FormLabel className="space-y-0">
              there is a error in signup, please use google signup. we are working on it . 
-            </FormLabel>
+            </FormLabel> */}
             <div className="flex justify-center items-center gap-3 px-4">
                   <Separator className="bg-zinc-500 h-1 rounded-full w-1/2" />
                   <p>or</p>

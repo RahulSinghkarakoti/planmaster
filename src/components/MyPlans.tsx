@@ -14,7 +14,7 @@ import { PlanResponse } from "@/types/ApiResponse";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 
- 
+import NotFound from "@/components/NotFound"
 
 export default function MyPlans() {
   const [plans, setPlans] = useState<PlanResponse[]>([]);
@@ -27,7 +27,7 @@ export default function MyPlans() {
     try {
       setLoading(true);
       const response = await axios.get("api/getPlans");
-      //console.log(response.data);
+      // console.log(response.data.Plans.length);
       setPlans(response.data.Plans);
     } catch (error) {
       //console.log("error ocuur in fetchin plan", error);
@@ -47,6 +47,8 @@ export default function MyPlans() {
     // console.log(typeof ongoingPlans[0]?.percentageCompleted)
   }, [plans]);
 
+  
+
   return (
     <section className="w-full pt-16 md:pt-18 lg:pt-16 xl:pt-24 flex flex-col   gap-4  bg-black dark:bg-white   top-0 z-2 min-h-screen ">
       <div className="container px-4 md:px-6  ">
@@ -64,6 +66,9 @@ export default function MyPlans() {
       </div>
       <div className=" px-6 sm:px-12 py-6  ">
         <div>
+          {
+           !loading && plans.length >0 ?
+
           <Tabs defaultValue="ongoing">
             <TabsList className="dark:text-black dark:bg-white dark:border-black border-2">
               <TabsTrigger value="ongoing">Onging</TabsTrigger>
@@ -87,8 +92,11 @@ export default function MyPlans() {
                   ))}
                 </div>
               )}
+
+ 
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4  ">
-                {ongoingPlans.map((p, index) => (
+                {  ongoingPlans.map((p, index) => (
                   <Link href={`/Plan/${p.plan._id}`} key={index}>
                     <Card
                      className="w-full h-full flex flex-col justify-between dark:bg-white dark:shadow-xl "
@@ -114,7 +122,8 @@ export default function MyPlans() {
                       </CardContent>
                     </Card>
                   </Link>
-                ))}
+                ))
+              }
               </div>
             </TabsContent>
             <TabsContent value="completed">
@@ -157,6 +166,11 @@ export default function MyPlans() {
               </div>{" "}
             </TabsContent>
           </Tabs>
+            :
+            <div>
+              <NotFound/>
+            </div>
+          }
         </div>
       </div>
     </section>

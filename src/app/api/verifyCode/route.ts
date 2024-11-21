@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 
             return Response.json({
                 success: true,
-                message: 'user verified '
+                message: 'user verification successfull '
             },
                 {
                     status: 200

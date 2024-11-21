@@ -108,7 +108,7 @@ export default function Home() {
             <form onSubmit={handleSubmit} className="flex sm:flex-row flex-col sm:items-start   w-full  items-center sm:gap-0 gap-2 space-x-2   ">
               <Input
                 type="text"
-                className="flex-1 w-3/4 bg-white/10 text-white placeholder-white  "
+                className="flex-1 w-3/4 bg-white/10 text-white dark:text-black placeholder-white  "
                 placeholder="Enter your plan idea..."
                 disabled={submitting}
                 value={planIdea}

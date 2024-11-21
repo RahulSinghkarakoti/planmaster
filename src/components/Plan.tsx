@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 /* eslint-disable */
 
 import React, { useEffect, useState } from "react";
@@ -32,8 +32,6 @@ import { Button } from "@/components/ui/button";
 import { CircleCheckBig, Info } from "lucide-react";
 import { useRouter } from "next/navigation";
 
- 
-
 const Plan = ({ planId }: { planId: string }) => {
   // const { planId } = useParams();
   //console.log(planId);
@@ -49,7 +47,8 @@ const Plan = ({ planId }: { planId: string }) => {
       try {
         setLoading(true);
         const response = await axios.get(`/api/getPlanById?PlanId=${planId}`);
-
+        // console.log(response.data);
+        // console.log(response.data.plan[0].modules);
         setModules(response.data.plan[0].modules);
         setDoneArray(
           response.data.plan[0].modules.map((obj: any) => {
@@ -124,8 +123,8 @@ const Plan = ({ planId }: { planId: string }) => {
               {plan && <div>{plan.planTitle}</div>}
             </h1>
             <p className="mx-auto max-w-[700px] text-gray-200 dark:text-gray-800 md:text-xl">
-              Here’s the blueprint . Just follow the steps, no
-              assembly required.
+              Here’s the blueprint . Just follow the steps, no assembly
+              required.
             </p>
           </div>
         </div>
@@ -166,6 +165,7 @@ const Plan = ({ planId }: { planId: string }) => {
                         index + 1
                       )}
                     </span>
+
                     <Box flexShrink="1">
                       <div className="flex items-center space-x-2">
                         <span className="font-medium leading-tight text-lg text-black">
@@ -186,13 +186,28 @@ const Plan = ({ planId }: { planId: string }) => {
                         </Popover>
                       </div>
                       <p className="text-sm">{module.desc}</p>
-
+                      <div className="flex items-center justify-start gap-2 w-full flex-wrap">
+                        {module.links &&
+                          module.links.map((link: string, index: number) => {
+                            return (
+                              <span className="bg-slate-200 dark:bg-slate-300 rounded-full px-2 ">
+                                <a
+                                  href={link}
+                                  target="_blank"
+                                  className="text-sm text-blue-500 visited:text-purple-700 "
+                                >
+                                  {link.slice(0, 30)}
+                                </a>
+                              </span>
+                            );
+                          })}
+                      </div>
                       <div
                         onClick={() => toggleModule(module._id)}
                         className="m-2"
                       >
                         {doneArray.includes(module._id) ? (
-                          <Button className="flex justify-between items-center bg-zinc-600 dark:bg-zinc-700 dark:text-white">
+                          <Button className="flex justify-between items-center gap-1 bg-zinc-600 dark:bg-zinc-700 dark:text-white">
                             <p>Done</p>
                             <CircleCheckBig size={20} />
                           </Button>
@@ -228,6 +243,7 @@ const Plan = ({ planId }: { planId: string }) => {
                 <AlertDialogAction
                   className="dark:bg-red-600 dark:text-white"
                   onClick={() => deletePlan()}
+                  
                 >
                   Delete
                 </AlertDialogAction>
@@ -235,6 +251,8 @@ const Plan = ({ planId }: { planId: string }) => {
             </AlertDialogContent>
           </AlertDialog>
         </div>
+
+
       </div>
     </section>
   );

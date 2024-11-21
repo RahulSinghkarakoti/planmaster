@@ -6,6 +6,7 @@ export interface Module extends Document {
   desc: string;
   add_info: string;
   isCompleted: boolean;
+  links:string[]
 }
 
 const ModuleSchema: Schema<Module> = new mongoose.Schema({
@@ -29,6 +30,10 @@ const ModuleSchema: Schema<Module> = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  links:{
+    type:[String], 
+    default:[]
+  }
 });
 
 export interface Plan extends Document {
@@ -51,8 +56,8 @@ const PlanSchema: Schema<Plan> = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-
   modules: [ModuleSchema],
+
 }, { timestamps: true });
 
 export interface User extends Document {

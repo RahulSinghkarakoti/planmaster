@@ -23,10 +23,10 @@ export async function POST(request: Request) { //user will send task in request 
     const { task,selectedLevel } = await request.json()
     //console.log(task)
     const newPlan = await generatePlan(task,selectedLevel)
+    console.log(newPlan.modules) 
+    // console.log(JSON.stringify(newPlan.links, null, 2))
     try {
-        // console.log(newPlan)
-        //console.log(typeof newPlan)
-        // console.log(newPlan.title === 'Invalid')
+        
         if (newPlan.title === 'Invalid')
             return Response.json({
                 success: false,
