@@ -23,8 +23,6 @@ export async function POST(request: Request) { //user will send task in request 
     const { task,selectedLevel } = await request.json()
     //console.log(task)
     const newPlan = await generatePlan(task,selectedLevel)
-    console.log(newPlan.modules) 
-    // console.log(JSON.stringify(newPlan.links, null, 2))
     try {
         
         if (newPlan.title === 'Invalid')
