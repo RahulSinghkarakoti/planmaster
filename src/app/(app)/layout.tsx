@@ -16,12 +16,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
       <AuthProvider>
         <body>
-  <Navbar />
+          <Navbar />
           <ChakraProvider>{children}</ChakraProvider>
 
           <Toaster />
